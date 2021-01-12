@@ -1,0 +1,11 @@
+django==3.1.4
+djangorestframework==3.12.2
+pyjwt==1.7.1
+djangorestframework-simplejwt==4.3.0
+celery==5.0.2
+django-cors-headers==3.6.0
+clearbit==0.1.7
+requests==2.25.1
+selenium==3.141.0
+psycopg2==2.8.6
+python-dotenv==0.15.0

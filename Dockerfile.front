@@ -1,0 +1,5 @@
+FROM node:14.15.3-buster
+
+RUN npm install -g @vue/cli
+RUN mkdir /frontend
+WORKDIR /frontend

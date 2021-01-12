@@ -1,0 +1,40 @@
+version: '3.9'
+services:
+
+  frontend:
+    build:
+      context: ./
+      dockerfile: Dockerfile.front
+    command: npm run serve
+    ports:
+      - 8080:8080
+    volumes:
+      - ./frontend:/frontend
+    
+  postgresql:
+    image: 'postgres:13.1'
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      
+  django:
+    build: .
+    command: 'python manage.py runserver 0.0.0.0:8000'
+    volumes:
+      - '.:/docker-proj'
+    ports:
+      - '8000:8000'
+    depends_on:
+      - postgresql
+      
+  rabbitmq:
+    image: 'rabbitmq:3.8.9-management'
+    
+  celery:
+    build: .
+    command: celery -A docker_proj worker -l info
+    volumes:
+      - '.:/docker-proj'
+    depends_on:
+      - rabbitmq
